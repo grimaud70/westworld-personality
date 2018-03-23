@@ -3,6 +3,7 @@
 This repo contains a tool for generating a personality matrix
 in the style of [Westworld](https://www.hbo.com/westworld). 
 
+<img width="1000px" src="example.png"/>
 
 
 # Personality Data
