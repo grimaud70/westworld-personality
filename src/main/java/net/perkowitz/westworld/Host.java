@@ -43,7 +43,8 @@ public class Host {
         lightPalette.put("text", new Color(100, 100, 120));
     }
 
-    private static Map<String, Color> palette = darkPalette;
+//    private static Map<String, Color> palette = darkPalette;
+    private static Map<String, Color> palette = lightPalette;
 
 
     private static Map<String, Integer> attributes;
@@ -57,6 +58,27 @@ public class Host {
         }
 
         String dataFile = args[0];
+
+        palette = darkPalette;
+        String imageFile = dataFile + ".png";
+        if (dataFile.endsWith(".csv")) {
+            imageFile = dataFile.substring(0, dataFile.length()-4) + ".png";
+        }
+        generate(dataFile, imageFile);
+
+        palette = lightPalette;
+        imageFile = dataFile + "-light.png";
+        if (dataFile.endsWith(".csv")) {
+            imageFile = dataFile.substring(0, dataFile.length()-4) + "-light.png";
+        }
+        generate(dataFile, imageFile);
+
+
+
+        
+    }
+
+    public static void generate(String dataFile, String imageFile) throws Exception {
 
         BufferedImage image = new BufferedImage(IMAGE_WIDTH, IMAGE_HEIGHT, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = image.createGraphics();
@@ -77,13 +99,10 @@ public class Host {
         readAttributes(dataFile);
         drawAttributes(g);
 
-        String imageFile = dataFile + ".png";
-        if (dataFile.endsWith(".csv")) {
-            imageFile = dataFile.substring(0, dataFile.length()-4) + ".png";
-        }
         System.out.printf("Generating personality matrix in %s..\n", imageFile);
         ImageIO.write(image, "png", new File(imageFile));
-        
+
+
     }
 
     public static Map<String, Integer> readAttributes(String filename) {
